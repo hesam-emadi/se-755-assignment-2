@@ -4,11 +4,11 @@ import pandas as pd
 
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import GridSearchCV, KFold
-from sklearn.svm import SVC
+from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import StratifiedShuffleSplit
 
-print('** SVM Classification *******************************************************')
+print('** LogisticRegression Classification *******************************************************')
 
 landsatData = pd.read_csv("./resources/landsat/lantsat.csv")
 
@@ -34,23 +34,30 @@ Train_Target_Matrix = y_midPixelAsTarget.loc[train_ind]
 scaler = StandardScaler().fit(Train_Matrix)
 Train_Matrix, Test_Matrix = scaler.transform(Train_Matrix), scaler.transform(Test_Matrix)
 
-# data training with hyperparameter tuning for C
-clf = SVC()
 
+classifier = LogisticRegression()
+
+# hyperparameter tuning for solver and C
 param_grid = [
-    {'kernel': ['rbf'], 'C': [2 ** x for x in range(0, 6)]},
+    {'solver': ['newton-cg'], 'C': [1, 2, 4, 8, 16, 32]},
+    {'solver': ['lbfgs'], 'C': [1, 2, 4, 8, 16, 32]},
+    {'solver': ['liblinear'], 'C': [1, 2, 4, 8, 16, 32]},
+    {'solver': ['sag'], 'C': [1, 2, 4, 8, 16, 32]},
+    {'solver': ['saga'], 'C': [1, 2, 4, 8, 16, 32]},
 ]
+
 inner_cv = KFold(n_splits=3, shuffle=True, random_state=1)
-grid_search = GridSearchCV(clf, param_grid, cv=inner_cv, n_jobs=1, scoring='accuracy', verbose=3)
+grid_search = GridSearchCV(classifier, param_grid, cv=inner_cv, n_jobs=1, scoring='accuracy', verbose=3)
 grid_search.fit(Train_Matrix, Train_Target_Matrix)
 
-clf = grid_search.best_estimator_
+classifier = grid_search.best_estimator_
 # data testing
-T_predict = clf.predict(Test_Matrix)
+T_predict = classifier.predict(Test_Matrix)
 
+print('** LogisticRegression Result *******************************************************')
 
-
-print("SVM: The prediction accuracy (tuned) for all testing sentence is : {:.2f}%.".format(100 * accuracy_score(Test_Target_Matrix, T_predict)))
+print("Logistic Regression: The prediction accuracy (tuned) for all testing sentence is : {:.2f}%.".format(100 * accuracy_score(Test_Target_Matrix, T_predict)))
 print(grid_search.best_params_)
 print(grid_search.param_grid)
 
+print('**********************************************************************************')
