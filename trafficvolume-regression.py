@@ -53,15 +53,15 @@ def conductBayesianLinearRegression(trainingData, testData, trainingTarget, test
 
     testDataPrediction = classifier.predict(testData)
 
-    print('** Best params: ')
-    print(grid_search.best_params_)
-    print(grid_search.param_grid)
-
     print(' ')
     # The coefficients
     print('Coefficients and Intercept are: ', classifier.coef_, "   ", classifier.intercept_, ' respectively')
     # The mean squared error
     print('** Tuned Bayesian Linear Regression *******************************************************')
+    print('** Best params: ')
+    print(grid_search.best_params_)
+    print(grid_search.param_grid)
+
     print("Mean squared error for testing data: %.2f"
           % mean_squared_error(testTarget, testDataPrediction))
 
