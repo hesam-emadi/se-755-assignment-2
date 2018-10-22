@@ -1,8 +1,12 @@
 import numpy as np
 import pandas as pd
 
+from sklearn.mixture import GaussianMixture
+
+#Class GMM is deprecated
+#from sklearn.mixture import GMM
+
 from sklearn.model_selection import StratifiedShuffleSplit
-from sklearn.cluster import KMeans
 from sklearn import metrics
 
 from time import time
@@ -36,23 +40,19 @@ Test_Target_Matrix = y_occupancyAsTarget.loc[test_ind]
 Train_Matrix = feature_prepared.loc[train_ind]
 Train_Target_Matrix = y_occupancyAsTarget.loc[train_ind]
 
-kmeans = KMeans(init='k-means++', n_clusters=2)
+gmmClusterer = GaussianMixture(n_components=2)
 t0 = time()
-kmeans.fit(Train_Matrix)
+gmmClusterer.fit(Train_Matrix)
 
-kmeans.predict(Test_Matrix)
-
-print "Cluster Centers: ", kmeans.cluster_centers_
+gmmClusterer.predict(Test_Matrix)
 
 print(82 * '*')
-print('init\t\ttime\tinertia\t\thomo\tcompl\tv-meas\tARI\tAMI')
 
-print('%-9s\t%.2fs\t%i\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f'
-          % ('k-means++', (time() - t0), kmeans.inertia_,
-             metrics.homogeneity_score(Train_Target_Matrix, kmeans.labels_),
-             metrics.completeness_score(Train_Target_Matrix, kmeans.labels_),
-             metrics.v_measure_score(Train_Target_Matrix, kmeans.labels_),
-             metrics.adjusted_rand_score(Train_Target_Matrix, kmeans.labels_),
-             metrics.adjusted_mutual_info_score(Train_Target_Matrix,  kmeans.labels_)))
-
+print "Cluster Means: ", str(gmmClusterer.means_)
+print(82 * '-')
+print "Cluster Covariance: ", gmmClusterer.covariances_
+print(82 * '-')
+print "Precisions: ", str(gmmClusterer.precisions_)
+print(82 * '-')
+print "Weights: ", str(gmmClusterer.weights_)
 print(82 * '*')
