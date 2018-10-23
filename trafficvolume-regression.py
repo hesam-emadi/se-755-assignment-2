@@ -1,8 +1,8 @@
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
-from sklearn import datasets, linear_model
-from sklearn.metrics import mean_squared_error, r2_score, precision_recall_curve, average_precision_score
+from sklearn import linear_model
+from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.model_selection import GridSearchCV, KFold
 from sklearn.metrics import precision_recall_fscore_support
 
