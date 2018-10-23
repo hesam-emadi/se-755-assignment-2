@@ -8,3 +8,9 @@ Refer to http://contrib.scikit-learn.org/categorical-encoding/
 pip install category_encoders
 ### or for Anaconda
 conda install -c conda-forge category_encoders
+
+## Install Tensorflow
+conda install tensorflow
+
+## Install Tensorflow GPU
+conda install tensorflow-gpu
