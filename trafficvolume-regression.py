@@ -6,6 +6,7 @@ from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.metrics import explained_variance_score, mean_absolute_error, median_absolute_error
 from sklearn.model_selection import GridSearchCV, KFold
 from sklearn.metrics import precision_recall_fscore_support
+import matplotlib.pyplot as plt
 
 def conductBayesianLinearRegression(trainingData, testData, trainingTarget, testTarget):
     # Create Bayesian linear regression object
@@ -23,6 +24,18 @@ def conductBayesianLinearRegression(trainingData, testData, trainingTarget, test
     # score = regr.decision_function(testData)
     #     print("average_precision_score: %.4f"
     #           % average_precision_score(testTarget, score))
+
+
+    lr = linear_model.BayesianRidge().fit(trainingData,trainingTarget)
+    testDataPrediction=lr.predict(testData)
+    print(lr.score(testData, testTarget))
+    # print model
+    plt.scatter(range(len(testData)), testTarget,  color='black')
+    # Prediction and draw the diagram
+    plt.plot(range(len(testData)), testDataPrediction, color='red', linewidth=1)
+    plt.legend(["predict", "true"], loc='upper right')
+    plt.title('Bayesian Linear Regression')
+    plt.show()
 
     print(' ')
     # The coefficients
