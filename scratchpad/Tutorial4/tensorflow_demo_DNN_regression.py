@@ -1,5 +1,4 @@
-############################################Eg1:  Training an MLP (DNN) with TensorFlow’s High-Level API (no graph!)
-
+# 1:16:30
 
 # Common imports
 import numpy as np
