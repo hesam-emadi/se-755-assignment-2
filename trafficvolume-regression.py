@@ -3,6 +3,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn import linear_model
 from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.metrics import explained_variance_score, mean_absolute_error, median_absolute_error
 from sklearn.model_selection import GridSearchCV, KFold
 from sklearn.metrics import precision_recall_fscore_support
 
@@ -28,16 +29,20 @@ def conductBayesianLinearRegression(trainingData, testData, trainingTarget, test
     print('Coefficients and Intercept are: ', regr.coef_, "   ", regr.intercept_, ' respectively')
     # The mean squared error
     print('** Bayesian Linear Regression *******************************************************')
-    print("Mean squared error for testing data: %.4f"
-          % mean_squared_error(testTarget, testDataPrediction))
+    print("Mean squared error for testing data: %.4f" % mean_squared_error(testTarget, testDataPrediction))
 
     # Explained variance score: 1 is perfect prediction
     print('Variance score for testing data: %.4f' % r2_score(testTarget, testDataPrediction))
+    print('Explained variance regression score function: %.4f' % explained_variance_score(testTarget, testDataPrediction))
+    print('Mean absolute error regression loss: %.4f' % mean_absolute_error(testTarget, testDataPrediction))
+    print('Median absolute error regression loss: %.4f' % median_absolute_error(testTarget, testDataPrediction))
 
-    print("Mean squared error for training data: %.4f"
-          % mean_squared_error(trainingTarget, trainingDataPrediction))
+    print("Mean squared error for training data: %.4f" % mean_squared_error(trainingTarget, trainingDataPrediction))
     # Explained variance score: 1 is perfect prediction
     print('Variance score for training data: %.4f' % r2_score(trainingTarget, trainingDataPrediction))
+    print('Explained variance regression score function: %.4f' % explained_variance_score(trainingTarget, trainingDataPrediction))
+    print('Mean absolute error regression loss: %.4f' % mean_absolute_error(trainingTarget, trainingDataPrediction))
+    print('Median absolute error regression loss: %.4f' % median_absolute_error(trainingTarget, trainingDataPrediction))
 
     print('******************************************************* ')
     classifier = linear_model.BayesianRidge()
