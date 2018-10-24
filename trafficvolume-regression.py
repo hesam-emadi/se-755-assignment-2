@@ -72,6 +72,21 @@ def conductBayesianLinearRegression(trainingData, testData, trainingTarget, test
     y_trainingDataPrediction_tuned = classifier.predict(trainingData)
     y_testDataPrediction_tuned = classifier.predict(testData)
 
+
+
+    lr = linear_model.BayesianRidge().fit(trainingData,trainingTarget)
+    y_testDataPrediction_tuned=lr.predict(testData)
+    print(lr.score(testData, testTarget))
+    # print model
+    plt.scatter(range(len(testData)), testTarget,  color='black')
+    # Prediction and draw the diagram
+    plt.plot(range(len(testData)), y_testDataPrediction_tuned, color='red', linewidth=1)
+    plt.legend(["predict", "true"], loc='upper right')
+    plt.title('Bayesian Linear Regression')
+    plt.show()
+
+
+
     print(' ')
     # The coefficients
     print('Coefficients and Intercept are: ', classifier.coef_, "   ", classifier.intercept_, ' respectively')
