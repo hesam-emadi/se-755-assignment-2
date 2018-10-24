@@ -91,6 +91,10 @@ def conductBayesianLinearRegression(trainingData, testData, trainingTarget, test
     print("Mean squared error for training data: %.4f" % mean_squared_error(trainingTarget, y_trainingDataPrediction_tuned))
     # Explained variance score: 1 is perfect prediction
     print('Variance score for training data: %.4f' % r2_score(trainingTarget, y_trainingDataPrediction_tuned))
+    print('Explained variance regression score function: %.4f' % explained_variance_score(trainingTarget, y_trainingDataPrediction_tuned))
+    print('Mean absolute error regression loss: %.4f' % mean_absolute_error(trainingTarget, y_trainingDataPrediction_tuned))
+    print('Median absolute error regression loss: %.4f' % median_absolute_error(trainingTarget, y_trainingDataPrediction_tuned))
+
 
 traffic = pd.read_csv("./resources/traffic-flow/traffic_flow_data.csv")
 #
