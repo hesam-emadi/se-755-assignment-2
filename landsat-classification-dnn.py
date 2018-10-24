@@ -55,13 +55,13 @@ y_test = Test_Target_Matrix
 
 xx, yy = Train_Matrix.shape
 #training phase
-feature_cols = [tf.feature_column.numeric_column("X", shape=[xx * yy])]
-dnn_clf = tf.estimator.DNNClassifier(hidden_units=[300,100], n_classes=10, feature_columns=feature_cols)
+feature_cols = [tf.feature_column.numeric_column("X", shape=[36])]
+dnn_clf = tf.estimator.DNNClassifier(hidden_units=[300,100], n_classes=7, feature_columns=feature_cols)
 # dnn_clf = tf.estimator.DNNClassifier(hidden_units=[300,100], n_classes=10)
 
 
 input_fn = tf.estimator.inputs.numpy_input_fn(
-    x={"X": X_train}, y=y_train, num_epochs=4000, batch_size=5000, shuffle=True)
+    x={"X": X_train}, y=y_train, num_epochs=40, batch_size=64, shuffle=True)
 dnn_clf.train(input_fn=input_fn)
 
 #testing phase
