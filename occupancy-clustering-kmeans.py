@@ -42,7 +42,7 @@ kmeans.fit(Train_Matrix)
 
 kmeans.predict(Test_Matrix)
 
-print "Cluster Centers: ", kmeans.cluster_centers_
+print ("Cluster Centers: ", kmeans.cluster_centers_)
 
 print(82 * '*')
 print('init\t\ttime\tinertia\t\thomo\tcompl\tv-meas\tARI\tAMI')
