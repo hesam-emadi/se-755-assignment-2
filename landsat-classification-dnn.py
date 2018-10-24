@@ -4,10 +4,6 @@ import pandas as pd
 
 import tensorflow as tf
 
-from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import GridSearchCV, KFold
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score
 from sklearn.model_selection import StratifiedShuffleSplit
 
 print('** DNN Classification *******************************************************')
@@ -33,35 +29,26 @@ Test_Target_Matrix = y_midPixelAsTarget.loc[test_ind]
 Train_Matrix = X_landSatAllFeatures.loc[train_ind]
 Train_Target_Matrix = y_midPixelAsTarget.loc[train_ind]
 
-scaler = StandardScaler().fit(Train_Matrix)
-Train_Matrix, Test_Matrix = scaler.transform(Train_Matrix), scaler.transform(Test_Matrix)
-
 def reset_graph(seed=42):
     tf.reset_default_graph()
     tf.set_random_seed(seed)
     np.random.seed(seed)
 
-X_train = Train_Matrix
-y_train = Train_Target_Matrix
-X_test = Test_Matrix
-y_test = Test_Target_Matrix
+X_train = Train_Matrix.values
+y_train = Train_Target_Matrix.values
+X_test = Test_Matrix.values
+y_test = Test_Target_Matrix.values
 
-# X_train = X_train.astype(np.float32).reshape(-1, 28*28) / 255.0
-# X_test = X_test.astype(np.float32).reshape(-1, 28*28) / 255.0
-# y_train = y_train.astype(np.int32)
-# y_test = y_test.astype(np.int32)
-# X_valid, X_train = X_train[:5000], X_train[5000:]
-# y_valid, y_train = y_train[:5000], y_train[5000:]
 
 xx, yy = Train_Matrix.shape
+
 #training phase
 feature_cols = [tf.feature_column.numeric_column("X", shape=[36])]
-dnn_clf = tf.estimator.DNNClassifier(hidden_units=[300,100], n_classes=7, feature_columns=feature_cols)
-# dnn_clf = tf.estimator.DNNClassifier(hidden_units=[300,100], n_classes=10)
+dnn_clf = tf.estimator.DNNClassifier(hidden_units=[256,32], n_classes=8, feature_columns=feature_cols)
 
 
 input_fn = tf.estimator.inputs.numpy_input_fn(
-    x={"X": X_train}, y=y_train, num_epochs=40, batch_size=64, shuffle=True)
+    x={"X": X_train}, y=y_train, num_epochs=500, batch_size=64, shuffle=True)
 dnn_clf.train(input_fn=input_fn)
 
 #testing phase
