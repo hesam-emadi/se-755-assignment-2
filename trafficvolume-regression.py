@@ -82,7 +82,7 @@ def conductBayesianLinearRegression(trainingData, testData, trainingTarget, test
     # Prediction and draw the diagram
     plt.plot(range(len(testData)), y_testDataPrediction_tuned, color='red', linewidth=1)
     plt.legend(["predict", "true"], loc='upper right')
-    plt.title('Bayesian Linear Regression')
+    plt.title('Tuned Bayesian Linear Regression')
     plt.show()
 
 
