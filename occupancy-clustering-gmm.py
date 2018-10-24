@@ -48,11 +48,11 @@ gmmClusterer.predict(Test_Matrix)
 
 print(82 * '*')
 
-print "Cluster Means: ", str(gmmClusterer.means_)
+print("Cluster Means: ", str(gmmClusterer.means_))
 print(82 * '-')
-print "Cluster Covariance: ", gmmClusterer.covariances_
+print("Cluster Covariance: ", gmmClusterer.covariances_)
 print(82 * '-')
-print "Precisions: ", str(gmmClusterer.precisions_)
+print("Precisions: ", str(gmmClusterer.precisions_))
 print(82 * '-')
-print "Weights: ", str(gmmClusterer.weights_)
+print("Weights: ", str(gmmClusterer.weights_))
 print(82 * '*')
