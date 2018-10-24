@@ -5,7 +5,6 @@ from sklearn import linear_model
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.metrics import explained_variance_score, mean_absolute_error, median_absolute_error
 from sklearn.model_selection import GridSearchCV, KFold
-from sklearn.metrics import precision_recall_fscore_support
 import matplotlib.pyplot as plt
 
 def conductBayesianLinearRegression(trainingData, testData, trainingTarget, testTarget):
