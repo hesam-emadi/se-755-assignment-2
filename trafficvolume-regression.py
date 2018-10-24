@@ -5,7 +5,6 @@ from sklearn import linear_model
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.metrics import explained_variance_score, mean_absolute_error, median_absolute_error
 from sklearn.model_selection import GridSearchCV, KFold
-from sklearn.metrics import precision_recall_fscore_support
 import matplotlib.pyplot as plt
 
 def conductBayesianLinearRegression(trainingData, testData, trainingTarget, testTarget):
@@ -82,14 +81,20 @@ def conductBayesianLinearRegression(trainingData, testData, trainingTarget, test
     print(grid_search.best_params_)
     print(grid_search.param_grid)
 
-    print("Mean squared error for testing data: %.4f"
-          % mean_squared_error(testTarget, y_testDataPrediction_tuned))
+    print("Mean squared error for testing data: %.4f" % mean_squared_error(testTarget, y_testDataPrediction_tuned))
     # Explained variance score: 1 is perfect prediction
     print('Variance score for testing data: %.4f' % r2_score(testTarget, y_testDataPrediction_tuned))
-    print
+    print('Explained variance regression score function: %.4f' % explained_variance_score(testTarget, y_testDataPrediction_tuned))
+    print('Mean absolute error regression loss: %.4f' % mean_absolute_error(testTarget, y_testDataPrediction_tuned))
+    print('Median absolute error regression loss: %.4f' % median_absolute_error(testTarget, y_testDataPrediction_tuned))
+        
     print("Mean squared error for training data: %.4f" % mean_squared_error(trainingTarget, y_trainingDataPrediction_tuned))
     # Explained variance score: 1 is perfect prediction
     print('Variance score for training data: %.4f' % r2_score(trainingTarget, y_trainingDataPrediction_tuned))
+    print('Explained variance regression score function: %.4f' % explained_variance_score(trainingTarget, y_trainingDataPrediction_tuned))
+    print('Mean absolute error regression loss: %.4f' % mean_absolute_error(trainingTarget, y_trainingDataPrediction_tuned))
+    print('Median absolute error regression loss: %.4f' % median_absolute_error(trainingTarget, y_trainingDataPrediction_tuned))
+
 
 traffic = pd.read_csv("./resources/traffic-flow/traffic_flow_data.csv")
 #
