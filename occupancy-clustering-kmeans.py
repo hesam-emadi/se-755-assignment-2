@@ -40,19 +40,28 @@ kmeans = KMeans(init='k-means++', n_clusters=2)
 t0 = time()
 kmeans.fit(Train_Matrix)
 
-kmeans.predict(Test_Matrix)
+predictResult = kmeans.predict(Test_Matrix)
 
 print ("Cluster Centers: ", kmeans.cluster_centers_)
 
 print(82 * '*')
-print('init\t\ttime\tinertia\t\thomo\tcompl\tv-meas\tARI\tAMI')
-
+print('')
+print('Model\t\t\t\t\ttime\tinertia\t\thomo\tcompl\tv-meas\tARI  \tAMI')
+print(82 * '-')
 print('%-9s\t%.2fs\t%i\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f'
-          % ('k-means++', (time() - t0), kmeans.inertia_,
+          % ('Training Performance', (time() - t0), kmeans.inertia_,
              metrics.homogeneity_score(Train_Target_Matrix, kmeans.labels_),
              metrics.completeness_score(Train_Target_Matrix, kmeans.labels_),
              metrics.v_measure_score(Train_Target_Matrix, kmeans.labels_),
              metrics.adjusted_rand_score(Train_Target_Matrix, kmeans.labels_),
              metrics.adjusted_mutual_info_score(Train_Target_Matrix,  kmeans.labels_)))
 
-print(82 * '*')
+print(82 * '-')
+
+print('%-9s\t\t%.2fs\t%i\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f'
+          % ('Test Performance', (time() - t0), kmeans.inertia_,
+             metrics.homogeneity_score(Test_Target_Matrix, predictResult),
+             metrics.completeness_score(Test_Target_Matrix, predictResult),
+             metrics.v_measure_score(Test_Target_Matrix, predictResult),
+             metrics.adjusted_rand_score(Test_Target_Matrix, predictResult),
+             metrics.adjusted_mutual_info_score(Test_Target_Matrix,  predictResult)))

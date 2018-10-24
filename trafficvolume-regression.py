@@ -19,12 +19,6 @@ def conductBayesianLinearRegression(trainingData, testData, trainingTarget, test
     # Make predictions using the testing set
     trainingDataPrediction = regr.predict(trainingData)
 
-    # Trying to calculate precision and recall
-    # score = regr.decision_function(testData)
-    #     print("average_precision_score: %.4f"
-    #           % average_precision_score(testTarget, score))
-
-
     lr = linear_model.BayesianRidge().fit(trainingData,trainingTarget)
     testDataPrediction=lr.predict(testData)
     print(lr.score(testData, testTarget))
@@ -73,7 +67,6 @@ def conductBayesianLinearRegression(trainingData, testData, trainingTarget, test
     y_testDataPrediction_tuned = classifier.predict(testData)
 
 
-
     lr = linear_model.BayesianRidge().fit(trainingData,trainingTarget)
     y_testDataPrediction_tuned=lr.predict(testData)
     print(lr.score(testData, testTarget))
@@ -84,8 +77,6 @@ def conductBayesianLinearRegression(trainingData, testData, trainingTarget, test
     plt.legend(["predict", "true"], loc='upper right')
     plt.title('Tuned Bayesian Linear Regression')
     plt.show()
-
-
 
     print(' ')
     # The coefficients
