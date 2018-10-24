@@ -2,13 +2,8 @@ import numpy as np
 import pandas as pd
 
 from sklearn.mixture import GaussianMixture
-
 #Class GMM is deprecated
-#from sklearn.mixture import GMM
-
 from sklearn.model_selection import StratifiedShuffleSplit
-from sklearn import metrics
-
 from time import time
 
 occupancy = pd.read_csv("./resources/occupancy-sensor/occupancy_sensor_data.csv")
