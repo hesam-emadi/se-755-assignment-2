@@ -5,6 +5,8 @@ from sklearn.mixture import GaussianMixture
 #Class GMM is deprecated
 from sklearn.model_selection import StratifiedShuffleSplit
 from time import time
+from sklearn import metrics
+import matplotlib.pyplot as plt
 
 occupancy = pd.read_csv("./resources/occupancy-sensor/occupancy_sensor_data.csv")
 
@@ -37,9 +39,9 @@ Train_Target_Matrix = y_occupancyAsTarget.loc[train_ind]
 
 gmmClusterer = GaussianMixture(n_components=2)
 t0 = time()
-gmmClusterer.fit(Train_Matrix)
+gmmTrainedLabels = gmmClusterer.fit(Train_Matrix)
 
-gmmClusterer.predict(Test_Matrix)
+gmmTestLabels = gmmClusterer.predict(Test_Matrix)
 
 print(82 * '*')
 
@@ -49,5 +51,19 @@ print("Cluster Covariance: ", gmmClusterer.covariances_)
 print(82 * '-')
 print("Precisions: ", str(gmmClusterer.precisions_))
 print(82 * '-')
-print("Weights: ", str(gmmClusterer.weights_))
-print(82 * '*')
+
+print('Model\t\ttime\thomo\tcompl\tv-meas\tARI  \tAMI')
+print('%-9s\t%.2fs\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f'
+          % ('GMM', (time() - t0),
+             metrics.homogeneity_score(Test_Target_Matrix, gmmTestLabels),
+             metrics.completeness_score(Test_Target_Matrix, gmmTestLabels),
+             metrics.v_measure_score(Test_Target_Matrix, gmmTestLabels),
+             metrics.adjusted_rand_score(Test_Target_Matrix, gmmTestLabels),
+             metrics.adjusted_mutual_info_score(Test_Target_Matrix,  gmmTestLabels)))
+
+# plt.scatter(Test_Matrix.iloc[0,:], Test_Matrix.iloc[1,:], color='black')
+# # Prediction and draw the diagram
+# #plt.plot(range(len(testData)), y_testDataPrediction_tuned, color='red', linewidth=1)
+# #plt.legend(["predict", "true"], loc='upper right')
+# plt.title('GMM Clustering')
+# plt.show()
